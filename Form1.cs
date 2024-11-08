@@ -22,16 +22,16 @@ namespace Game
         {
             InitializeComponent();
             Init_SongData();
-           
+
         }
 
-        
+
 
         private void Init_SongData()
         {
             songData = new List<(String Title, string[] Lyrics, Image Image)>
             {
-                ("APT.-ROSÉ", new string[]{ "Kissy face, kissy face", 
+                ("APT.-ROSÉ", new string[]{ "Kissy face, kissy face",
                     "Sent to your phone but",
                     "I'm trying to kiss your lips for real",
                     "Red hearts, red hearts","That's what I'm on yeah",
@@ -122,14 +122,18 @@ namespace Game
                 var input = txtbox_input.Text;
                 var correctText = currentLyrics[currentLineIndex];
 
-                
+
                 if (input.Equals(correctText))
                 {
                     score += 5; // 정답 시 5점 추가
+                    lbl_score.Text = $"score : { score }";
+                    
                 }
                 else
                 {
                     score = Math.Max(0, score - 1);
+                    lbl_score.Text = $"score : {score}";
+
                 }
 
                 currentLineIndex++;
@@ -144,26 +148,25 @@ namespace Game
                 {
                     EndGame();
                 }
-            }
+            }   
         }
 
         private void EndGame()
-            {
-                TimeSpan elapsedTime = DateTime.Now - startTime;
-                timer1.Stop();
-                lbl_time.Text = $"{elapsedTime.Minutes}분 {elapsedTime.Seconds}초";
-                MessageBox.Show($"소요시간 : {elapsedTime.Minutes}분 {elapsedTime.Seconds}초 \n score : {score}");
-                lbl_result.Text += $"score: {score} {elapsedTime.Minutes}분 {elapsedTime.Seconds}초\n ";
+        {
+            TimeSpan elapsedTime = DateTime.Now - startTime;
+            timer1.Stop();
+            lbl_time.Text = $"타이머 : {elapsedTime.Minutes}분 {elapsedTime.Seconds}초";
+            MessageBox.Show($"소요시간 : {elapsedTime.Minutes}분 {elapsedTime.Seconds}초 \n score : {score}");
+            lbl_result.Text += $"score: {score} / {elapsedTime.Minutes}분 {elapsedTime.Seconds}초\n ";
 
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            TimeSpan elapsedTime = DateTime.Now - startTime;   
+            TimeSpan elapsedTime = DateTime.Now - startTime;
             lbl_time.Text = $"타이머 : {elapsedTime.Minutes}분 {elapsedTime.Seconds}초";
 
         }
     }
-    } 
-
+}
 
